@@ -1,14 +1,16 @@
 ---
 name: dotnet-backend-architect
 description: >-
-  Architect, scaffold, and implement production-grade ASP.NET Core Web API backends using the 100-step
-  engineering roadmap aligned with Microsoft Azure Well-Architected Framework (WAF) pillars: Reliability,
+  Architect, scaffold, and implement production-grade ASP.NET Core Web API backends using the 130-step
+  engineering master roadmap aligned with Microsoft Azure Well-Architected Framework (WAF) pillars: Reliability,
   Security, Cost Optimization, Operational Excellence, and Performance Efficiency.
 ---
 
-# ASP.NET Core Enterprise Backend Architect (Azure WAF 100-Step Roadmap)
+# ASP.NET Core Enterprise Backend Architect (Azure WAF 130-Step Master Roadmap)
 
 This skill guides agents and engineers in architecting, constructing, auditing, and defending enterprise-grade **ASP.NET Core Web API Flagship Projects**. Every design decision, database index, security middleware, and pipeline behavior is strictly justified through the five pillars of the **Microsoft Azure Well-Architected Framework (WAF)**.
+
+The roadmap is engineered across **13 distinct phases (130 granular steps)** covering the complete software engineering lifecycle: from initial architectural C4 modeling and normalization, through core implementation and testing, to production container hardening and comprehensive developer portal documentation.
 
 ---
 
@@ -22,6 +24,6 @@ This skill guides agents and engineers in architecting, constructing, auditing, 
 
 ---
 
-## 🗺️ The Complete 100-Step Engineering Roadmap
+## 🗺️ The Complete 130-Step Master Roadmap
 
-Refer to the complete, unabridged [100-Step Engineering Roadmap](../../docs/dotnet-backend-roadmap-100.md) for full phase-by-phase implementation guidelines.
+Refer to the complete, unabridged [130-Step Engineering Master Roadmap](../../docs/dotnet-backend-roadmap-130.md) for full phase-by-phase implementation guidelines and prompts.
