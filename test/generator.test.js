@@ -60,3 +60,22 @@ test('injectAgentConfigs respects dry-run and writes files when executed', () =>
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 });
+
+test('injectAgentConfigs automatically appends .NET directives for C# projects', () => {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'uap-test-dotnet-gen-'));
+  try {
+    fs.writeFileSync(path.join(tmpDir, 'Backend.sln'), 'Microsoft Visual Studio Solution File', 'utf8');
+    injectAgentConfigs(tmpDir);
+
+    const ignoreContent = fs.readFileSync(path.join(tmpDir, '.agentignore'), 'utf8');
+    assert.ok(ignoreContent.includes('[Bb]in/'));
+    assert.ok(ignoreContent.includes('[Oo]bj/'));
+    assert.ok(ignoreContent.includes('TestResults/'));
+
+    const agentsContent = fs.readFileSync(path.join(tmpDir, 'AGENTS.md'), 'utf8');
+    assert.ok(agentsContent.includes('.NET Backend Engineering Directives'));
+    assert.ok(agentsContent.includes('Modern C# Idioms'));
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
