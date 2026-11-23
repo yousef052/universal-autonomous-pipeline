@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Released v1.5.0 with Living Memory Auto-Sync (uap record), Context Leak Doctor (uap doctor), and Financial Budget Estimator (uap budget). (package.json, src/index.js, src/ui/menu.js, src/budget/, src/doctor/, src/memory/, test/features.test.js)
 - [2026-11-23] Initialized UAP autonomous ledger.
 - [2026-11-23] Production release v1.0.0 with CLI engine, project detector, context auditor, unit tests, and GitHub Actions CI. (bin/uap.js, src/*, test/*, docs/*, .github/workflows/ci.yml)
 - [2026-11-23] Fix cross-platform test script command for Linux bash compatibility in CI. (package.json)
@@ -27,3 +28,4 @@
 - [2026-11-24] Released v1.4.0 with CARE Quality Framework (Connect, Ask, Resolve, Expectations), care consultation wizard, and 33 automated unit & stress tests. (bin/uap.js, src/care/*, test/care.test.js, docs/care-framework.md)
 - [2026-11-24] Global System Deployment: linked uap CLI globally across Windows environment, initialized and verified D:\enterprise-booking-engine (Grade A 100/100), and tested live reflection.
 - [2026-11-24] Released v1.4.1: UI Fluff & Hardcoded Stats Removal. Streamlined banner, real dynamic project context diagnostics scorecard, and concise developer-first menu options. (bin/uap.js, src/ui/*, src/care/*, test/ui.test.js, README.md)
+- [2026-11-24] Relocated project to unified agent umbrella workspace D:\Antigravity-Projects\universal-autonomous-pipeline and re-linked global CLI. (PROJECT_STATE.md)
