@@ -6,3 +6,6 @@ export { extractSymbols, estimateTokens } from './distiller/symbolExtractor.js';
 export { synthesizePrompt } from './synthesizers/promptSynthesizer.js';
 export { parsePatches, applyPatches } from './patcher/patchApplier.js';
 export { copyToClipboard, readFromClipboard } from './utils/clipboard.js';
+export { generateScaffoldPrompt } from './scaffolder/scaffoldEngine.js';
+export { parseBatch, executeBatch } from './reflector/batchExecutor.js';
+export { generatePowerShellScript, generateBashScript } from './reflector/scriptGenerator.js';
