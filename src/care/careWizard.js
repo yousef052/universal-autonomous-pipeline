@@ -93,7 +93,7 @@ export async function runCareConsultation(rootDir = process.cwd(), options = {})
   const exp = expectations({
     actionSummary: 'Production Agent Acceleration Installed',
     filesModified: fileResults.map(r => r.file),
-    benchmarkGain: '~74x faster prompt turnaround (52 min -> 42 sec)',
+    benchmarkGain: 'Optimized Context (Filtered dependencies & anchored memory)',
     mode: 'agent'
   });
 

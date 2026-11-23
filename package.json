@@ -1,6 +1,6 @@
 {
   "name": "universal-autonomous-pipeline",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Universal Autonomous Performance & Context Precision Pipeline for AI Coding Agents",
   "main": "src/index.js",
   "type": "module",

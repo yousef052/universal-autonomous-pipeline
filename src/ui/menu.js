@@ -2,7 +2,7 @@ import readline from 'node:readline';
 
 export async function promptModeSelect() {
   if (!process.stdin.isTTY) {
-    return 'agent'; // non-interactive fallback default
+    return 'agent';
   }
 
   const rl = readline.createInterface({
@@ -10,27 +10,16 @@ export async function promptModeSelect() {
     output: process.stdout
   });
 
-  console.log(`\nSelect an Operational Mode to proceed:\n`);
-  console.log(`  [1] Agent Mode (Acceleration)`);
-  console.log(`      -> Optimize local IDE agents (Antigravity, Cursor, Claude Code, Windsurf)`);
-  console.log(`      -> Auto-detect stack, create PROJECT_STATE.md, and inject hygiene rules\n`);
-
-  console.log(`  [2] Patch Mode (Web Chat Adapter)`);
-  console.log(`      -> Fast bugfix/feature workflow via ChatGPT, Claude.ai, or Gemini Web`);
-  console.log(`      -> Tree-shake target code (< 3k tokens), copy prompt, and apply patch\n`);
-
-  console.log(`  [3] Builder Mode (Zero-Agent App from Scratch)`);
-  console.log(`      -> Build complete apps from scratch with only a browser & terminal`);
-  console.log(`      -> Master architect 4-phase scaffolding + 1-click terminal reflector\n`);
-
-  console.log(`  [C] CARE Quality Consultation (Connect + Ask + Resolve + Expectations)`);
-  console.log(`      -> Guided enterprise-grade consultation tailored to your repository context\n`);
-
-  console.log(`  [A] Audit Context Score (Grade A-F context health check)`);
+  console.log(`\nSelect operational mode:\n`);
+  console.log(`  [1] Agent Mode   - Initialize living memory ledger & ignore rules`);
+  console.log(`  [2] Patch Mode   - Tree-shake code into <3k token prompt & apply diffs`);
+  console.log(`  [3] Builder Mode - Multi-phase project scaffolding via web chat`);
+  console.log(`  [C] CARE Mode    - Step-by-step guided setup with git & stack checks`);
+  console.log(`  [A] Audit        - Check context health score`);
   console.log(`  [Q] Exit\n`);
 
   return new Promise(resolve => {
-    rl.question('Choose an option [1, 2, 3, C, A, Q] (Default: 1): ', answer => {
+    rl.question('Option [1, 2, 3, C, A, Q] (Default: 1): ', answer => {
       rl.close();
       const choice = (answer || '1').trim().toLowerCase();
       if (choice === '1' || choice === 'agent') resolve('agent');

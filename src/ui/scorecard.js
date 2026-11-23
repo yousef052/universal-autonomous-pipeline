@@ -1,33 +1,42 @@
 export function renderBenchmarkScorecard({ auditResult = {}, mode = 'agent' }) {
-  const line = '─'.repeat(66);
+  const line = '─'.repeat(64);
   const score = auditResult.score !== undefined ? auditResult.score : 100;
   const grade = auditResult.grade || 'A';
-  const scoreBadge = `SCORE: ${score}/100 (GRADE: ${grade})`;
+  const status = score >= 80 ? 'HEALTHY (Context standards satisfied)' : 'NEEDS ATTENTION (Issues detected)';
 
-  let actionAdvice = '';
+  let nextStep = '';
   if (mode === 'agent') {
-    actionAdvice = 'You can now start prompting in Antigravity or Cursor WITHOUT typing @';
+    nextStep = 'Prompt in your AI agent directly without typing @file';
   } else if (mode === 'patch') {
-    actionAdvice = 'Prompt copied to clipboard! Paste into ChatGPT/Claude.ai, then run "npx uap apply"';
+    nextStep = 'Prompt copied to clipboard. Paste into chat, then run "uap apply"';
   } else if (mode === 'builder') {
-    actionAdvice = 'Phase 1 prompt copied! Paste into web chat, then run "npx uap run" to reflect';
+    nextStep = 'Phase 1 prompt copied. Paste into chat, then run "uap run"';
   } else {
-    actionAdvice = 'All context optimization standards verified!';
+    nextStep = score >= 80 ? 'Project is ready for AI coding' : 'Run "uap init" to resolve issues';
+  }
+
+  let diagnostics = '';
+  if (auditResult.issues && auditResult.issues.length > 0) {
+    diagnostics = auditResult.issues.map(iss => `│   [!] ${iss.message.substring(0, 56).padEnd(56)} │`).join('\n');
+  } else {
+    diagnostics = [
+      '│   [✓] Context hygiene: dependencies & build assets excluded    │',
+      '│   [✓] Architecture ledger: PROJECT_STATE.md active             │',
+      '│   [✓] Agent rule set: cross-platform directives active         │'
+    ].join('\n');
   }
 
   return `
 ┌${line}┐
-│ 📊 VERIFIED REAL-WORLD BENCHMARKS & CONTEXT HEALTH                      │
+│ 📋 PROJECT CONTEXT DIAGNOSTICS                                 │
 ├${line}┤
-│ Metric                   Without UAP         With UAP        Gain       │
+│ Health Score:    ${`Score: ${score}/100 (Grade: ${grade})`.padEnd(45)} │
+│ Status:          ${status.padEnd(45)} │
 ├${line}┤
-│ Prompt Turnaround Time   30 – 52 min         30 – 42 sec     ~74x Fast  │
-│ Active Session DB Size   55.1 MB             2.62 MB         95.2% Saved│
-│ Token Cost per Turn      ~6,700k tokens      ~24.5k tokens   99.6% Light│
-│ Project Memory Retention Frequent drift      100% Retained   Zero Loss  │
+│ VERIFIED STANDARDS:                                            │
+${diagnostics}
 ├${line}┤
-│ CONTEXT HEALTH STATUS:   ${scoreBadge.padEnd(46)} │
-│ NEXT STEP:               ${actionAdvice.substring(0, 46).padEnd(46)} │
+│ Next Step:       ${nextStep.substring(0, 45).padEnd(45)} │
 └${line}┘
 `;
 }

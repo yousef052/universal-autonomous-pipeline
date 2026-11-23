@@ -33,7 +33,7 @@ test('CARE: expectations formats alignment dashboard and verification advice', (
   const exp = expectations({
     actionSummary: 'Workspace Accelerated',
     filesModified: ['PROJECT_STATE.md', '.agentignore', 'AGENTS.md'],
-    benchmarkGain: '~74x faster',
+    benchmarkGain: 'Optimized Context',
     mode: 'agent'
   });
 

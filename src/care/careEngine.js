@@ -160,7 +160,7 @@ export function ask(intent = 'accelerate', context = {}) {
 export function expectations({
   actionSummary = 'Workspace Optimized',
   filesModified = [],
-  benchmarkGain = '~74x faster',
+  benchmarkGain = 'Optimized Context (Filtered dependencies & anchored memory)',
   mode = 'agent'
 }) {
   const line = '─'.repeat(66);
@@ -169,7 +169,7 @@ export function expectations({
   let rollbackAdvice = 'Restore files anytime from .uap-backup/ directory';
 
   if (mode === 'agent') {
-    aiBehaviorAdvice = 'Agents will read PROJECT_STATE.md on Turn 1 & answer in <45s';
+    aiBehaviorAdvice = 'Agents read PROJECT_STATE.md on turn 1 to target files directly';
     verificationCommand = 'npx uap audit  (should score 100/100 Grade A)';
   } else if (mode === 'patch') {
     aiBehaviorAdvice = 'Chatbot will output machine-parseable diffs with zero filler';
