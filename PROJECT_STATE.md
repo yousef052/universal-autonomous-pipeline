@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Overhauled AGENTS.md, CLAUDE.md, README.md, and agent templates with comprehensive directives and architecture guidance.
 - [2026-11-24] Released v1.6.0: Language/Platform/Environment Awareness with Ironclad Security Guardrails (Path Traversal Protection, Remote Command Injection Defense, and Secret Redaction).
 - [2026-11-24] Deep .NET Backend Support: C# symbol tree-shaker, .NET context leak doctor, budget calculator for .cs/.csproj, and architecture directives for C# 12 / .NET 8.
 - [2026-11-24] Added first-class .NET and ASP.NET Core project detector, commands, and balanced global gitignore patterns.
