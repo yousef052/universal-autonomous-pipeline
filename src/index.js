@@ -2,3 +2,7 @@ export { detectProject } from './detectors/projectDetector.js';
 export { generateProjectState } from './generators/stateGenerator.js';
 export { injectAgentConfigs } from './generators/agentGenerator.js';
 export { auditProject } from './auditor/contextAuditor.js';
+export { extractSymbols, estimateTokens } from './distiller/symbolExtractor.js';
+export { synthesizePrompt } from './synthesizers/promptSynthesizer.js';
+export { parsePatches, applyPatches } from './patcher/patchApplier.js';
+export { copyToClipboard, readFromClipboard } from './utils/clipboard.js';
