@@ -97,7 +97,7 @@ UAP v1.6.0 embeds an active security firewall inside every file modification and
 | **Go** | `go.mod` | `go run .`, `go test ./...` | Excludes `vendor/`, guards against goroutine leaks and unchecked errors. |
 | **Rust** | `Cargo.toml` | `cargo run`, `cargo test` | Excludes `target/`, compiler borrow-checker compliance. |
 
-> 🏛️ **Flagship CV Project Blueprint:** Includes the official [100-Step ASP.NET Core & Azure WAF Engineering Roadmap](docs/dotnet-backend-roadmap-100.md) and the `dotnet-backend-architect` Antigravity skill.
+> 🏛️ **Flagship CV Project Blueprint:** Includes the official [130-Step ASP.NET Core & Azure WAF Master Engineering Roadmap](docs/dotnet-backend-roadmap-130.md) (and [100-step overview](docs/dotnet-backend-roadmap-100.md)) alongside the `dotnet-backend-architect` Antigravity skill.
 
 ---
 
