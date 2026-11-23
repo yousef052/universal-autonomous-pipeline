@@ -10,7 +10,6 @@ export function injectAgentConfigs(rootDir = process.cwd(), options = {}) {
 node_modules/
 dist/
 build/
-bin/
 obj/
 .next/
 .git/
