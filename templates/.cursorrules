@@ -1,0 +1,7 @@
+# Cursor IDE Autonomous Performance Directive
+
+Always enforce the 4-stage pipeline:
+1. Virtual @: Read `PROJECT_STATE.md` first. Auto-target files without blind scans.
+2. Context Economy: Ignore `node_modules`, `dist`, `build`. Read targeted line ranges.
+3. Single-Pass Execution: Batch contiguous edits. Validate once at the end.
+4. Memory Ledger: Update `PROJECT_STATE.md` milestones on task completion.

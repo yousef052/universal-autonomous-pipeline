@@ -1,0 +1,21 @@
+# Universal Agent Exclusion Patterns
+node_modules/
+dist/
+build/
+bin/
+obj/
+.next/
+.git/
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.ico
+*.exe
+*.dll
+*.zip
+*.tar.gz
+*.log
+*.tmp
+package-lock.json

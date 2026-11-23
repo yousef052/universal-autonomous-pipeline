@@ -1,0 +1,6 @@
+# Windsurf Autonomous Performance Directive
+
+1. Virtual @: Inspect `PROJECT_STATE.md` on Turn 1 to anchor context.
+2. Context Economy: Parallel tool calling, chunked reads, ignore build directories.
+3. Single-Pass: Batch code edits. Execute compile/test once after all edits.
+4. Auto-Sync: Record milestone in `PROJECT_STATE.md` upon completion.
