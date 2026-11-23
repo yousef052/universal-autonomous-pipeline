@@ -6,21 +6,21 @@ export function renderBenchmarkScorecard({ auditResult = {}, mode = 'agent' }) {
 
   let nextStep = '';
   if (mode === 'agent') {
-    nextStep = 'Prompt in your AI agent directly without typing @file';
+    nextStep = 'Prompt agent directly (virtual @ active)';
   } else if (mode === 'patch') {
-    nextStep = 'Prompt copied to clipboard. Paste into chat, then run "uap apply"';
+    nextStep = 'Paste into chat, then run "uap apply"';
   } else if (mode === 'builder') {
-    nextStep = 'Phase 1 prompt copied. Paste into chat, then run "uap run"';
+    nextStep = 'Paste into chat, then run "uap run"';
   } else {
-    nextStep = score >= 80 ? 'Project is ready for AI coding' : 'Run "uap init" to resolve issues';
+    nextStep = score >= 80 ? 'Project ready: prompt agent directly' : 'Run "uap init" to resolve issues';
   }
 
   let diagnostics = '';
   if (auditResult.issues && auditResult.issues.length > 0) {
-    diagnostics = auditResult.issues.map(iss => `│   [!] ${iss.message.substring(0, 56).padEnd(56)} │`).join('\n');
+    diagnostics = auditResult.issues.map(iss => `│   [!] ${iss.message.substring(0, 54).padEnd(54)} │`).join('\n');
   } else {
     diagnostics = [
-      '│   [✓] Context hygiene: dependencies & build assets excluded    │',
+      '│   [✓] Context hygiene: dependencies & build excluded           │',
       '│   [✓] Architecture ledger: PROJECT_STATE.md active             │',
       '│   [✓] Agent rule set: cross-platform directives active         │'
     ].join('\n');
