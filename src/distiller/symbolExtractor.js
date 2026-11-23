@@ -1,6 +1,8 @@
 import path from 'node:path';
 
 const DECLARATION_REGEX = /^(export\s+)?(async\s+)?(function|class|interface|type|const|let|var|def|fn|pub fn|func)\b/;
+const CSHARP_DECL_REGEX = /^(public|private|protected|internal|file)?\s*(static|async|virtual|override|abstract|sealed|readonly|partial)?\s*(class|interface|record|struct|enum|void|Task|ValueTask|ActionResult|IActionResult|[A-Za-z0-9_<>,\.\[\]]+)\s+[A-Za-z0-9_]+\s*(\(|=|:|\{|;)/;
+const CSHARP_ATTRIBUTE_REGEX = /^\[[A-Za-z0-9_]+(\(.*\))?\]$/;
 const LICENSE_BLOCK_REGEX = /\/\*[\s\S]*?Copyright[\s\S]*?\*\//gi;
 const HASH_COPYRIGHT_REGEX = /^#\s*Copyright[\s\S]*?\n/gim;
 
@@ -81,14 +83,29 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
     const line = lines[i];
     const trimmed = line.trim();
 
-    // Preserve imports and exports
-    if (trimmed.startsWith('import ') || trimmed.startsWith('export ') || trimmed.startsWith('from ') || trimmed.startsWith('package ') || trimmed.startsWith('use ')) {
+    // Preserve imports, exports, usings, and namespaces
+    if (
+      trimmed.startsWith('import ') ||
+      trimmed.startsWith('export ') ||
+      trimmed.startsWith('from ') ||
+      trimmed.startsWith('package ') ||
+      trimmed.startsWith('use ') ||
+      trimmed.startsWith('using ') ||
+      trimmed.startsWith('namespace ')
+    ) {
+      outlineLines.push(line);
+      continue;
+    }
+
+    // Preserve C# attributes (e.g. [ApiController], [HttpGet("{id}")])
+    if (ext === '.cs' && (CSHARP_ATTRIBUTE_REGEX.test(trimmed) || (trimmed.startsWith('[') && trimmed.endsWith(']')))) {
       outlineLines.push(line);
       continue;
     }
 
     // Preserve declarations
-    if (DECLARATION_REGEX.test(trimmed)) {
+    const isDecl = DECLARATION_REGEX.test(trimmed) || (ext === '.cs' && CSHARP_DECL_REGEX.test(trimmed));
+    if (isDecl) {
       outlineLines.push(line);
       if (line.includes('{')) {
         inFunction = true;

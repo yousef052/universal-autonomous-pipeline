@@ -35,12 +35,42 @@ Enforce the 4-stage pipeline autonomously:
 4. Living Memory: Append a 1-line update to PROJECT_STATE.md under Completed Milestones on task completion.
 `;
 
+  let isDotNet = options.isDotNet;
+  if (isDotNet === undefined) {
+    try {
+      const rootFiles = fs.readdirSync(rootDir);
+      isDotNet = rootFiles.some(f => f.endsWith('.sln') || f.endsWith('.csproj') || f === 'Program.cs');
+    } catch {
+      isDotNet = false;
+    }
+  }
+
+  let finalIgnoreContent = agentIgnoreContent;
+  let finalRule = genericRule;
+
+  if (isDotNet) {
+    finalIgnoreContent += `\n# .NET & Visual Studio Exclusions
+[Bb]in/
+[Oo]bj/
+.vs/
+TestResults/
+*.user
+*.suo
+`;
+    finalRule += `\n## 5. .NET Backend Engineering Directives
+- Modern C# Idioms: Use file-scoped namespaces, primary constructors, pattern matching, and records for DTOs.
+- Clean Architecture: Maintain separation of concerns (Controllers/Endpoints -> Application Services -> Domain & Data Access).
+- Async Discipline: Always propagate CancellationToken and avoid sync-over-async (.Result or .Wait()).
+- EF Core: Use AsNoTracking() for read queries and manage migrations carefully.
+`;
+  }
+
   const filesToWrite = [
-    { name: '.agentignore', content: agentIgnoreContent },
-    { name: 'AGENTS.md', content: genericRule },
-    { name: 'CLAUDE.md', content: genericRule },
-    { name: '.cursorrules', content: genericRule },
-    { name: '.windsurfrules', content: genericRule }
+    { name: '.agentignore', content: finalIgnoreContent },
+    { name: 'AGENTS.md', content: finalRule },
+    { name: 'CLAUDE.md', content: finalRule },
+    { name: '.cursorrules', content: finalRule },
+    { name: '.windsurfrules', content: finalRule }
   ];
 
   for (const item of filesToWrite) {
