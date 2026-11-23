@@ -4,12 +4,11 @@ import { renderBanner } from '../src/ui/banner.js';
 import { renderPreflightPlan } from '../src/ui/preflight.js';
 import { renderBenchmarkScorecard } from '../src/ui/scorecard.js';
 
-test('renderBanner outputs title, version, and executive summary', () => {
-  const banner = renderBanner('1.3.0');
-  assert.ok(banner.includes('UNIVERSAL AUTONOMOUS PIPELINE'));
-  assert.ok(banner.includes('v1.3.0'));
-  assert.ok(banner.includes('THE 60-MINUTE PROBLEM'));
-  assert.ok(banner.includes('74x faster'));
+test('renderBanner outputs title, version, and clean description', () => {
+  const banner = renderBanner('1.4.1');
+  assert.ok(banner.includes('Universal Autonomous Pipeline'));
+  assert.ok(banner.includes('v1.4.1'));
+  assert.ok(banner.includes('Context Precision & Memory Ledger'));
 });
 
 test('renderPreflightPlan displays detected stack and planned actions with safety guarantee', () => {
@@ -29,16 +28,15 @@ test('renderPreflightPlan displays detected stack and planned actions with safet
   assert.ok(plan.includes('PRIVACY GUARANTEE: 100% Local execution'));
 });
 
-test('renderBenchmarkScorecard outputs real-world benchmarks and context health score', () => {
+test('renderBenchmarkScorecard outputs real project diagnostics and context health score', () => {
   const card = renderBenchmarkScorecard({
-    auditResult: { score: 100, grade: 'A' },
+    auditResult: { score: 100, grade: 'A', healthy: true },
     mode: 'agent'
   });
 
-  assert.ok(card.includes('VERIFIED REAL-WORLD BENCHMARKS'));
-  assert.ok(card.includes('52 min'));
-  assert.ok(card.includes('42 sec'));
-  assert.ok(card.includes('~74x Fast'));
-  assert.ok(card.includes('95.2% Saved'));
-  assert.ok(card.includes('SCORE: 100/100 (GRADE: A)'));
+  assert.ok(card.includes('PROJECT CONTEXT DIAGNOSTICS'));
+  assert.ok(card.includes('Score: 100/100 (Grade: A)'));
+  assert.ok(card.includes('Context hygiene'));
+  assert.ok(card.includes('Architecture ledger'));
+  assert.ok(card.includes('Agent rule set'));
 });
