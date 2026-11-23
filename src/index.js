@@ -18,3 +18,6 @@ export { runCareConsultation } from './care/careWizard.js';
 export { recordMilestone, getChangedFiles } from './memory/recordEngine.js';
 export { diagnoseContextLeaks, fixContextLeaks, renderDoctorReport } from './doctor/contextDoctor.js';
 export { calculateBudget, renderBudgetScorecard } from './budget/budgetCalculator.js';
+export { isSafePath, isSafeCommand, redactSensitiveSecrets } from './safety/securityGuard.js';
+export { detectPlatform, detectEnvironment } from './context/environmentContext.js';
+export { getLanguageProfile } from './context/languageContext.js';
