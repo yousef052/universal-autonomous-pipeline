@@ -1,6 +1,11 @@
 node_modules/
+dist/
+build/
+coverage/
 .uap-backup/
 *.log
 .env*
+
+# Explicitly ensure CLI entrypoint is never ignored by IDE or Git
 !bin/
-!bin/uap.js
+!bin/**
