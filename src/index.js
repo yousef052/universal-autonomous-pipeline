@@ -15,3 +15,6 @@ export { renderPreflightPlan, askConfirmation } from './ui/preflight.js';
 export { renderBenchmarkScorecard } from './ui/scorecard.js';
 export { connect, ask, expectations } from './care/careEngine.js';
 export { runCareConsultation } from './care/careWizard.js';
+export { recordMilestone, getChangedFiles } from './memory/recordEngine.js';
+export { diagnoseContextLeaks, fixContextLeaks, renderDoctorReport } from './doctor/contextDoctor.js';
+export { calculateBudget, renderBudgetScorecard } from './budget/budgetCalculator.js';

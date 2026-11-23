@@ -1,0 +1,6 @@
+node_modules/
+.uap-backup/
+*.log
+.env*
+!bin/
+!bin/uap.js
