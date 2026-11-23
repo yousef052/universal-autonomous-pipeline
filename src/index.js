@@ -9,3 +9,7 @@ export { copyToClipboard, readFromClipboard } from './utils/clipboard.js';
 export { generateScaffoldPrompt } from './scaffolder/scaffoldEngine.js';
 export { parseBatch, executeBatch } from './reflector/batchExecutor.js';
 export { generatePowerShellScript, generateBashScript } from './reflector/scriptGenerator.js';
+export { renderBanner } from './ui/banner.js';
+export { promptModeSelect } from './ui/menu.js';
+export { renderPreflightPlan, askConfirmation } from './ui/preflight.js';
+export { renderBenchmarkScorecard } from './ui/scorecard.js';
