@@ -20,3 +20,4 @@
 - [2026-11-23] Initialized UAP autonomous ledger.
 - [2026-11-23] Production release v1.0.0 with CLI engine, project detector, context auditor, unit tests, and GitHub Actions CI. (bin/uap.js, src/*, test/*, docs/*, .github/workflows/ci.yml)
 - [2026-11-23] Fix cross-platform test script command for Linux bash compatibility in CI. (package.json)
+- [2026-11-23] Released v1.1.0 with Chatbot Adapter (uap pack, uap apply, symbol tree-shaker, multi-model synthesizers, and 15 automated unit tests). (bin/uap.js, src/*, templates/chatbots/*, test/*, docs/chatbot-workflow.md)

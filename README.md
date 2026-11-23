@@ -2,33 +2,34 @@
 
 [![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![NPM Version](https://img.shields.io/badge/npm-v1.0.0-cb3837.svg)](https://www.npmjs.com)
+[![NPM Version](https://img.shields.io/badge/npm-v1.1.0-cb3837.svg)](https://www.npmjs.com)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)]()
-[![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20Cursor%20%7C%20Windsurf-orange.svg)]()
+[![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20ChatGPT%20%7C%20Gemini%20%7C%20Cursor-orange.svg)]()
 
-A production-grade, zero-dependency autonomous engine and CLI tool for AI coding agents. UAP cuts multi-turn prompt turnaround latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
+A production-grade, zero-dependency autonomous engine and CLI tool for AI coding agents and web chatbots. UAP cuts multi-turn prompt turnaround latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
 
 ---
 
 ## ⚡ Quick Start: One Command Setup
 
-Initialize any repository with zero configuration:
-
+### For Autonomous Agents (Antigravity, Cursor, Claude Code)
 ```bash
-# In your project root
+# In your project root: auto-detects stack and initializes living memory
 npx uap init
-```
 
-Audit your project's AI context health score:
-
-```bash
+# Audit project AI context health score
 npx uap audit
 ```
 
-```text
-Context Health Audit for: /my-awesome-project
-  Score: 100/100 (Grade: A)
-  Status: EXCELLENT (All optimization standards met)
+### For Web Chatbots (Claude.ai, ChatGPT, Gemini Web, DeepSeek)
+```bash
+# 1. Distill code & copy prompt to clipboard (< 3k tokens)
+npx uap pack "Fix token refresh expiration" --chat=claude
+
+# 2. Paste (Ctrl+V) in web chat & copy the reply
+
+# 3. Ingest and apply patch automatically with backup & test verification
+npx uap apply
 ```
 
 ---
@@ -59,12 +60,18 @@ flowchart TD
 | :--- | :--- |
 | `npx uap init [dir]` | Auto-detects tech stack and generates `PROJECT_STATE.md`, `.agentignore`, and agent configs. |
 | `npx uap audit [dir]` | Evaluates project health score (0-100) and detects missing ignore rules or state files. |
+| `npx uap pack "<task>"` | Distills target code & architecture into a high-density prompt and copies it to clipboard. |
+| `npx uap apply [file]` | Ingests patch from clipboard or file, applies diffs, backs up files, and updates memory. |
 | `npx uap --version` | Outputs current CLI version. |
 | `npx uap --help` | Displays help manual and usage instructions. |
 
 ### Available Flags
-- `--force`: Overwrite existing configuration files.
-- `--dry-run`: Preview planned changes without writing to disk.
+- `--chat=<model>`: Tailor prompt format (`claude`, `chatgpt`, `gemini`, `deepseek`, `universal`).
+- `--files=<list>`: Manually specify target files for packing (e.g. `--files=src/auth.js,src/db.js`).
+- `--preview`: Print synthesized prompt to terminal without copying to clipboard.
+- `--dry-run`: Preview changes without writing to disk.
+- `--no-backup`: Skip creating `.uap-backup/` during patch application.
+- `--force`: Overwrite existing configuration files during init.
 - `--json`: Output audit results in machine-readable JSON format.
 
 ---
