@@ -22,3 +22,4 @@
 - [2026-11-23] Fix cross-platform test script command for Linux bash compatibility in CI. (package.json)
 - [2026-11-23] Released v1.1.0 with Chatbot Adapter (uap pack, uap apply, symbol tree-shaker, multi-model synthesizers, and 15 automated unit tests). (bin/uap.js, src/*, templates/chatbots/*, test/*, docs/chatbot-workflow.md)
 - [2026-11-23] Released v1.2.0 with Agent Emulation Protocol (uap scaffold, uap run, batch reflector, script generator, and 21 automated unit tests). (bin/uap.js, src/*, templates/chatbots/*, test/*, docs/zero-agent-building.md)
+- [2026-11-24] Released v1.3.0 with Interactive UX Engine (one-command onboarding, ASCII banner, 3-mode selector, pre-flight verification plan, benchmark scorecards, and 24 automated unit tests). (bin/uap.js, src/*, scripts/install.*, test/ui.test.js)

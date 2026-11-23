@@ -2,7 +2,7 @@
 
 [![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![NPM Version](https://img.shields.io/badge/npm-v1.2.0-cb3837.svg)](https://www.npmjs.com)
+[![NPM Version](https://img.shields.io/badge/npm-v1.3.0-cb3837.svg)](https://www.npmjs.com)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)]()
 [![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20ChatGPT%20%7C%20Gemini%20%7C%20Cursor-orange.svg)]()
 
@@ -10,36 +10,31 @@ A production-grade, zero-dependency autonomous engine and CLI tool for AI coding
 
 ---
 
-## ⚡ Quick Start: One Command Setup
+## ⚡ Quick Start: Zero-Friction One-Command Experience
 
-### 1. For Autonomous Coding Agents (Antigravity, Cursor, Claude Code)
+Launch the **Interactive Guided Experience** with a single command:
+
 ```bash
-# In your project root: auto-detects stack and initializes living memory
-npx uap init
-
-# Audit project AI context health score
-npx uap audit
+# Simply run with zero arguments:
+npx uap
 ```
 
-### 2. For Web Chatbots (Claude.ai, ChatGPT, Gemini Web, DeepSeek)
-```bash
-# Distill target code & copy prompt to clipboard (< 3k tokens)
-npx uap pack "Fix token refresh expiration" --chat=claude
+Or install via one-liner remote scripts:
 
-# Paste (Ctrl+V) in web chat, copy response, then apply patch with 1 click
-npx uap apply
+```powershell
+# Windows PowerShell
+irm https://raw.githubusercontent.com/yousef052/universal-autonomous-pipeline/main/scripts/install.ps1 | iex
 ```
 
-### 3. For Zero-Agent Project Building from Scratch (Web Chat Only)
 ```bash
-# 1. Generate master architect prompt for your project idea
-npx uap scaffold "Full-Stack Task Management SaaS with Next.js 14 and Prisma"
-
-# 2. Paste (Ctrl+V) in ChatGPT / Claude.ai, then copy the batch response
-
-# 3. Reflect to terminal in 1 second (creates files, runs npm install, copies Next Phase prompt)
-npx uap run
+# macOS & Linux
+curl -fsSL https://raw.githubusercontent.com/yousef052/universal-autonomous-pipeline/main/scripts/install.sh | bash
 ```
+
+### The 3 Core Modes at a Glance:
+1. **Agent Mode (Acceleration):** Auto-detects project stack, creates `PROJECT_STATE.md`, sets `.agentignore`, and injects rules for Antigravity, Cursor, Claude Code, and Windsurf.
+2. **Patch Mode (Web Chat Adapter):** Tree-shakes target code into < 3k tokens for ChatGPT/Claude.ai/Gemini, and applies incoming patches with 1 click.
+3. **Builder Mode (Zero-Agent App Builder):** Builds a complete full-stack app from scratch in 4 phases with one-click terminal reflection.
 
 ---
 
