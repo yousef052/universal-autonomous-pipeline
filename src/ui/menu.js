@@ -23,16 +23,20 @@ export async function promptModeSelect() {
   console.log(`      -> Build complete apps from scratch with only a browser & terminal`);
   console.log(`      -> Master architect 4-phase scaffolding + 1-click terminal reflector\n`);
 
+  console.log(`  [C] CARE Quality Consultation (Connect + Ask + Resolve + Expectations)`);
+  console.log(`      -> Guided enterprise-grade consultation tailored to your repository context\n`);
+
   console.log(`  [A] Audit Context Score (Grade A-F context health check)`);
   console.log(`  [Q] Exit\n`);
 
   return new Promise(resolve => {
-    rl.question('Choose an option [1, 2, 3, A, Q] (Default: 1): ', answer => {
+    rl.question('Choose an option [1, 2, 3, C, A, Q] (Default: 1): ', answer => {
       rl.close();
       const choice = (answer || '1').trim().toLowerCase();
       if (choice === '1' || choice === 'agent') resolve('agent');
       else if (choice === '2' || choice === 'patch') resolve('patch');
       else if (choice === '3' || choice === 'builder') resolve('builder');
+      else if (choice === 'c' || choice === 'care') resolve('care');
       else if (choice === 'a' || choice === 'audit') resolve('audit');
       else if (choice === 'q' || choice === 'exit') resolve('exit');
       else resolve('agent');

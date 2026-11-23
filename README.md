@@ -2,11 +2,12 @@
 
 [![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![NPM Version](https://img.shields.io/badge/npm-v1.3.0-cb3837.svg)](https://www.npmjs.com)
+[![NPM Version](https://img.shields.io/badge/npm-v1.4.0-cb3837.svg)](https://www.npmjs.com)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)]()
+[![Quality Standard: CARE](https://img.shields.io/badge/Quality%20Standard-CARE%20Framework-blueviolet.svg)](docs/care-framework.md)
 [![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20ChatGPT%20%7C%20Gemini%20%7C%20Cursor-orange.svg)]()
 
-A production-grade, zero-dependency autonomous engine and CLI tool for AI coding agents and web chatbots. UAP cuts multi-turn prompt turnaround latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
+A production-grade, zero-dependency autonomous engine and CLI tool for AI coding agents and web chatbots. Built on the **CARE Quality Framework** (Connect, Ask, Resolve, Expectations) to eliminate developer anxiety and cut multi-turn prompt turnaround latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
 
 ---
 
@@ -17,6 +18,9 @@ Launch the **Interactive Guided Experience** with a single command:
 ```bash
 # Simply run with zero arguments:
 npx uap
+
+# Or run the CARE Quality Framework Consultation directly:
+npx uap care
 ```
 
 Or install via one-liner remote scripts:

@@ -13,3 +13,5 @@ export { renderBanner } from './ui/banner.js';
 export { promptModeSelect } from './ui/menu.js';
 export { renderPreflightPlan, askConfirmation } from './ui/preflight.js';
 export { renderBenchmarkScorecard } from './ui/scorecard.js';
+export { connect, ask, expectations } from './care/careEngine.js';
+export { runCareConsultation } from './care/careWizard.js';
