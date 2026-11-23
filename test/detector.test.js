@@ -65,3 +65,29 @@ test('detectProject identifies Go project correctly', () => {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 });
+
+test('detectProject identifies .NET / ASP.NET Core project correctly', () => {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'uap-test-dotnet-'));
+  try {
+    const csproj = `<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+</Project>`;
+    fs.writeFileSync(path.join(tmpDir, 'MyBackendService.csproj'), csproj, 'utf8');
+    fs.mkdirSync(path.join(tmpDir, 'Controllers'));
+    fs.mkdirSync(path.join(tmpDir, 'Services'));
+
+    const detected = detectProject(tmpDir);
+    assert.equal(detected.type, 'ASP.NET Core Web API / Service');
+    assert.equal(detected.language, 'C#');
+    assert.equal(detected.framework, 'ASP.NET Core');
+    assert.equal(detected.commands.dev, 'dotnet watch run');
+    assert.equal(detected.commands.build, 'dotnet build');
+    assert.equal(detected.commands.test, 'dotnet test');
+    assert.ok(detected.sourceDirs.includes('Controllers'));
+    assert.ok(detected.sourceDirs.includes('Services'));
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
