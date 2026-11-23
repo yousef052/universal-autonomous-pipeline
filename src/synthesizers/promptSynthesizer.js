@@ -1,4 +1,5 @@
 import { estimateTokens } from '../distiller/symbolExtractor.js';
+import { redactSensitiveSecrets } from '../safety/securityGuard.js';
 
 export function synthesizePrompt({
   projectInfo = {},
@@ -10,7 +11,8 @@ export function synthesizePrompt({
   const target = chatTarget.toLowerCase();
 
   const filePayloads = targetFiles.map(f => {
-    return `### FILE: \`${f.path}\`\n\`\`\`${f.language || ''}\n${f.content}\n\`\`\``;
+    const safeContent = redactSensitiveSecrets(f.content).sanitized;
+    return `### FILE: \`${f.path}\`\n\`\`\`${f.language || ''}\n${safeContent}\n\`\`\``;
   }).join('\n\n');
 
   const distilledState = stateContent
