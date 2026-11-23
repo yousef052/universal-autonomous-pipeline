@@ -1,9 +1,25 @@
 import path from 'node:path';
 
+const DECLARATION_REGEX = /^(export\s+)?(async\s+)?(function|class|interface|type|const|let|var|def|fn|pub fn|func)\b/;
+const LICENSE_BLOCK_REGEX = /\/\*[\s\S]*?Copyright[\s\S]*?\*\//gi;
+const HASH_COPYRIGHT_REGEX = /^#\s*Copyright[\s\S]*?\n/gim;
+
 export function estimateTokens(text = '') {
   if (!text) return 0;
   // Standard BPE estimation: ~3.8 to 4 characters per token
   return Math.ceil(text.length / 4);
+}
+
+// Fast character counter avoiding array allocations
+function countBraces(str) {
+  let open = 0;
+  let close = 0;
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    if (code === 123) open++;       // '{'
+    else if (code === 125) close++; // '}'
+  }
+  return { open, close };
 }
 
 export function extractSymbols(code = '', filePath = '', options = {}) {
@@ -29,7 +45,6 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
       const line = lines[i];
       if (line.toLowerCase().includes(targetSymbol)) {
         capturing = true;
-        // Include up to 3 preceding lines for decorators/docstrings
         const start = Math.max(0, i - 3);
         for (let j = start; j < i; j++) symbolLines.push(lines[j]);
       }
@@ -37,8 +52,8 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
       if (capturing) {
         symbolLines.push(line);
         capturedCount++;
-        if (line.includes('{')) braceCount += (line.match(/{/g) || []).length;
-        if (line.includes('}')) braceCount -= (line.match(/}/g) || []).length;
+        const { open, close } = countBraces(line);
+        braceCount += (open - close);
 
         if (braceCount <= 0 && capturedCount > 5) {
           capturing = false;
@@ -58,6 +73,11 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
   let braceDepth = 0;
 
   for (let i = 0; i < lines.length; i++) {
+    if (outlineLines.length >= maxLines) {
+      outlineLines.push(`// ... [Truncated ${lines.length - outlineLines.length} lines for context economy] ...`);
+      break;
+    }
+
     const line = lines[i];
     const trimmed = line.trim();
 
@@ -68,8 +88,7 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
     }
 
     // Preserve declarations
-    const isDeclaration = /^(export\s+)?(async\s+)?(function|class|interface|type|const|let|var|def|fn|pub fn|func)\b/.test(trimmed);
-    if (isDeclaration) {
+    if (DECLARATION_REGEX.test(trimmed)) {
       outlineLines.push(line);
       if (line.includes('{')) {
         inFunction = true;
@@ -79,8 +98,8 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
     }
 
     if (inFunction) {
-      braceDepth += (line.match(/{/g) || []).length;
-      braceDepth -= (line.match(/}/g) || []).length;
+      const { open, close } = countBraces(line);
+      braceDepth += (open - close);
 
       if (braceDepth <= 0) {
         outlineLines.push('  // ... implementation ...');
@@ -90,22 +109,15 @@ export function extractSymbols(code = '', filePath = '', options = {}) {
       continue;
     }
 
-    if (outlineLines.length < maxLines) {
-      outlineLines.push(line);
-    }
-  }
-
-  if (outlineLines.length >= maxLines && outlineLines.length < lines.length) {
-    outlineLines.push(`// ... [Truncated ${lines.length - outlineLines.length} lines for context economy] ...`);
+    outlineLines.push(line);
   }
 
   return outlineLines.join('\n');
 }
 
 function cleanComments(code, ext) {
-  // Strip heavy license header blocks without touching code
   return code
-    .replace(/\/\*[\s\S]*?Copyright[\s\S]*?\*\//gi, '')
-    .replace(/^#\s*Copyright[\s\S]*?\n/gim, '')
+    .replace(LICENSE_BLOCK_REGEX, '')
+    .replace(HASH_COPYRIGHT_REGEX, '')
     .trim();
 }
