@@ -35,3 +35,28 @@ function ignoredTwo() {
   assert.ok(result.includes('targetHandler(req, res)'));
   assert.equal(result.includes('ignoredOne'), false);
 });
+
+test('extractSymbols outlines C# classes, records, and controller actions with attributes', () => {
+  const csharpCode = `using Microsoft.AspNetCore.Mvc;
+namespace Backend.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class OrdersController : ControllerBase
+{
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOrder(int id, CancellationToken ct)
+    {
+        var order = await _service.FindByIdAsync(id, ct);
+        if (order == null) return NotFound();
+        return Ok(order);
+    }
+}
+public record OrderDto(int Id, string Customer);
+`;
+  const result = extractSymbols(csharpCode, 'Controllers/OrdersController.cs', { maxLines: 20 });
+  assert.ok(result.includes('using Microsoft.AspNetCore.Mvc;'));
+  assert.ok(result.includes('namespace Backend.Controllers;'));
+  assert.ok(result.includes('[ApiController]'));
+  assert.ok(result.includes('public class OrdersController'));
+});

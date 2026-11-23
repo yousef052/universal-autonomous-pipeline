@@ -12,7 +12,11 @@ const DEFAULT_IGNORED_DIRS = new Set([
   'coverage',
   '.venv',
   '__pycache__',
-  'vendor'
+  'vendor',
+  '.vs',
+  'TestResults',
+  'bin',
+  'obj'
 ]);
 
 const SENSITIVE_PATTERNS = [/^\.env(\..+)?$/i, /^id_rsa/i, /\.pem$/i, /\.key$/i];
@@ -140,6 +144,17 @@ export function diagnoseContextLeaks(rootDir = process.cwd(), options = {}) {
           continue;
         }
 
+        // 4b. .NET TestResults & User Cache Leaks
+        if (ext === '.trx' || name.endsWith('.user') || name.endsWith('.suo')) {
+          leaks.push({
+            type: 'DOTNET_CACHE',
+            file: relPath.replace(/\\/g, '/'),
+            sizeKb,
+            message: '.NET test results or Visual Studio user cache file not excluded.'
+          });
+          continue;
+        }
+
         // 5. Large File Bloat
         if (stat.size > maxFileSize) {
           leaks.push({
@@ -161,6 +176,7 @@ export function diagnoseContextLeaks(rootDir = process.cwd(), options = {}) {
       if (l.type === 'LOG_FILE') return '*.log';
       if (l.type === 'DATABASE') return `*${ext}`;
       if (l.type === 'SENSITIVE_ENV') return '.env*';
+      if (l.type === 'DOTNET_CACHE') return ext === '.trx' ? 'TestResults/' : `*${ext}`;
       return l.file;
     })
   ));
