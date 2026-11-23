@@ -2,7 +2,7 @@
 
 [![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![NPM Version](https://img.shields.io/badge/npm-v1.1.0-cb3837.svg)](https://www.npmjs.com)
+[![NPM Version](https://img.shields.io/badge/npm-v1.2.0-cb3837.svg)](https://www.npmjs.com)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)]()
 [![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20ChatGPT%20%7C%20Gemini%20%7C%20Cursor-orange.svg)]()
 
@@ -12,7 +12,7 @@ A production-grade, zero-dependency autonomous engine and CLI tool for AI coding
 
 ## ⚡ Quick Start: One Command Setup
 
-### For Autonomous Agents (Antigravity, Cursor, Claude Code)
+### 1. For Autonomous Coding Agents (Antigravity, Cursor, Claude Code)
 ```bash
 # In your project root: auto-detects stack and initializes living memory
 npx uap init
@@ -21,15 +21,24 @@ npx uap init
 npx uap audit
 ```
 
-### For Web Chatbots (Claude.ai, ChatGPT, Gemini Web, DeepSeek)
+### 2. For Web Chatbots (Claude.ai, ChatGPT, Gemini Web, DeepSeek)
 ```bash
-# 1. Distill code & copy prompt to clipboard (< 3k tokens)
+# Distill target code & copy prompt to clipboard (< 3k tokens)
 npx uap pack "Fix token refresh expiration" --chat=claude
 
-# 2. Paste (Ctrl+V) in web chat & copy the reply
-
-# 3. Ingest and apply patch automatically with backup & test verification
+# Paste (Ctrl+V) in web chat, copy response, then apply patch with 1 click
 npx uap apply
+```
+
+### 3. For Zero-Agent Project Building from Scratch (Web Chat Only)
+```bash
+# 1. Generate master architect prompt for your project idea
+npx uap scaffold "Full-Stack Task Management SaaS with Next.js 14 and Prisma"
+
+# 2. Paste (Ctrl+V) in ChatGPT / Claude.ai, then copy the batch response
+
+# 3. Reflect to terminal in 1 second (creates files, runs npm install, copies Next Phase prompt)
+npx uap run
 ```
 
 ---
@@ -62,14 +71,19 @@ flowchart TD
 | `npx uap audit [dir]` | Evaluates project health score (0-100) and detects missing ignore rules or state files. |
 | `npx uap pack "<task>"` | Distills target code & architecture into a high-density prompt and copies it to clipboard. |
 | `npx uap apply [file]` | Ingests patch from clipboard or file, applies diffs, backs up files, and updates memory. |
+| `npx uap scaffold "<idea>"` | Generates Master Architect Prompt to build an app from scratch via web chatbot. |
+| `npx uap run [file]` | Ingests multi-file batch, creates directories/files, runs setup, and copies next phase prompt. |
 | `npx uap --version` | Outputs current CLI version. |
 | `npx uap --help` | Displays help manual and usage instructions. |
 
 ### Available Flags
 - `--chat=<model>`: Tailor prompt format (`claude`, `chatgpt`, `gemini`, `deepseek`, `universal`).
+- `--stack="<tech>"`: Set active tech stack for scaffolding.
+- `--phase=<n>`: Select phase index (1 to 4) for multi-stage building.
 - `--files=<list>`: Manually specify target files for packing (e.g. `--files=src/auth.js,src/db.js`).
 - `--preview`: Print synthesized prompt to terminal without copying to clipboard.
 - `--dry-run`: Preview changes without writing to disk.
+- `--script=ps\|bash`: Generate standalone PowerShell or Bash script instead of executing.
 - `--no-backup`: Skip creating `.uap-backup/` during patch application.
 - `--force`: Overwrite existing configuration files during init.
 - `--json`: Output audit results in machine-readable JSON format.
