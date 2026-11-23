@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { isSafePath, isSafeCommand } from '../safety/securityGuard.js';
 
 const DISALLOWED_COMMAND_PATTERNS = [
   /rm\s+-rf\s+[\/\\]/i,
@@ -99,6 +100,9 @@ export function executeBatch(batch, rootDir = process.cwd(), options = {}) {
 
   // 1. Create directories
   for (const dir of batch.mkdirs) {
+    if (!isSafePath(rootDir, dir)) {
+      continue;
+    }
     const targetDir = path.resolve(rootDir, dir);
     if (!dryRun) {
       fs.mkdirSync(targetDir, { recursive: true });
@@ -108,6 +112,14 @@ export function executeBatch(batch, rootDir = process.cwd(), options = {}) {
 
   // 2. Write files
   for (const item of batch.writes) {
+    if (!isSafePath(rootDir, item.file)) {
+      results.filesWritten.push({
+        file: item.file,
+        bytes: 0,
+        status: 'BLOCKED (Path traversal attempt)'
+      });
+      continue;
+    }
     const targetFile = path.resolve(rootDir, item.file);
     if (!dryRun) {
       fs.mkdirSync(path.dirname(targetFile), { recursive: true });
@@ -122,12 +134,12 @@ export function executeBatch(batch, rootDir = process.cwd(), options = {}) {
   // 3. Execute safe commands
   if (!skipExec && !dryRun) {
     for (const cmd of batch.execs) {
-      const isDangerous = DISALLOWED_COMMAND_PATTERNS.some(p => p.test(cmd));
-      if (isDangerous) {
+      const check = isSafeCommand(cmd);
+      if (!check.safe) {
         results.commandsExecuted.push({
           command: cmd,
           success: false,
-          error: 'Security guardrail blocked potentially unsafe command'
+          error: `Security guardrail blocked potentially unsafe command: ${check.reason || 'disallowed pattern'}`
         });
         continue;
       }

@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { isSafePath } from '../safety/securityGuard.js';
 
 const FILE_BLOCK_REGEX = /<<<FILE:\s*([^\r\n>]+)>>>([\s\S]*?)<<<END_FILE>>>/g;
 const SEARCH_REPLACE_REGEX = /<<<<<<<\s*SEARCH([\s\S]*?)=======([\s\S]*?)>>>>>>>\s*REPLACE/g;
@@ -68,6 +69,14 @@ export function applyPatches(patches = [], rootDir = process.cwd(), options = {}
   const backupDir = path.join(rootDir, '.uap-backup', `${Date.now()}`);
 
   for (const patch of patches) {
+    if (!isSafePath(rootDir, patch.file)) {
+      results.push({
+        file: patch.file,
+        status: 'FAILED (Path traversal security violation)',
+        changes: 0
+      });
+      continue;
+    }
     const targetPath = path.resolve(rootDir, patch.file);
     const fileExists = fs.existsSync(targetPath);
 

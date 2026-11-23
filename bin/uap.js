@@ -54,13 +54,13 @@ const flags = {
 };
 
 if (flags.version) {
-  console.log('uap v1.5.0');
+  console.log('uap v1.6.0');
   process.exit(0);
 }
 
 if (flags.help) {
   console.log(`
-Universal Autonomous Pipeline (UAP) CLI - v1.5.0
+Universal Autonomous Pipeline (UAP) CLI - v1.6.0
 Zero-Bloat Autonomous & Web Chat Precision Engine
 
 Usage:
@@ -89,7 +89,7 @@ Interactive Flags:
 const targetDir = process.cwd();
 
 async function runInteractive() {
-  console.log(renderBanner('1.5.0'));
+  console.log(renderBanner('1.6.0'));
 
   if (flags.care) {
     await runCareConsultation(targetDir, flags);
