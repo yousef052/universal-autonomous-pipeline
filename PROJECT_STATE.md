@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Added first-class .NET and ASP.NET Core project detector, commands, and balanced global gitignore patterns.
 - [2026-11-24] Released v1.5.0 with Living Memory Auto-Sync (uap record), Context Leak Doctor (uap doctor), and Financial Budget Estimator (uap budget). (package.json, src/index.js, src/ui/menu.js, src/budget/, src/doctor/, src/memory/, test/features.test.js)
 - [2026-11-23] Initialized UAP autonomous ledger.
 - [2026-11-23] Production release v1.0.0 with CLI engine, project detector, context auditor, unit tests, and GitHub Actions CI. (bin/uap.js, src/*, test/*, docs/*, .github/workflows/ci.yml)
