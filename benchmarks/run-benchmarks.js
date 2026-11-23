@@ -5,6 +5,8 @@ import { synthesizePrompt } from '../src/synthesizers/promptSynthesizer.js';
 import { parseBatch } from '../src/reflector/batchExecutor.js';
 import { parsePatches } from '../src/patcher/patchApplier.js';
 import { auditProject } from '../src/auditor/contextAuditor.js';
+import { isSafePath, isSafeCommand, redactSensitiveSecrets } from '../src/safety/securityGuard.js';
+import { calculateBudget } from '../src/budget/budgetCalculator.js';
 
 function formatNumber(num) {
   return new Intl.NumberFormat('en-US').format(num);
@@ -77,6 +79,22 @@ const port = 8080;
 <<<END_FILE>>>
 `;
 
+const sampleCsharp500Lines = `using Microsoft.AspNetCore.Mvc;
+namespace Benchmark.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class BenchmarkController : ControllerBase
+{
+` + Array.from({ length: 80 }, (_, i) => `
+    [HttpGet("${i}")]
+    public async Task<IActionResult> GetItem${i}(int id, CancellationToken ct)
+    {
+        var result = await _service.ExecuteAsync(${i}, ct);
+        return Ok(result);
+    }
+`).join('\n') + '\n}\npublic record ItemDto(int Id, string Name);';
+
 console.log('\n===============================================================');
 console.log('⚡ UAP CORE ENGINE PERFORMANCE BENCHMARK SUITE');
 console.log(`OS: ${os.type()} ${os.release()} (${os.arch()}) | Node: ${process.version}`);
@@ -94,7 +112,11 @@ const results = [
   }), 1000),
   runBenchmark('Batch Parser (20 files manifest)', () => parseBatch(sampleBatch20Files), 500),
   runBenchmark('Patch Parser (Search/Replace)', () => parsePatches(samplePatchText), 1000),
-  runBenchmark('Context Auditor', () => auditProject(process.cwd()), 300)
+  runBenchmark('Context Auditor', () => auditProject(process.cwd()), 300),
+  runBenchmark('C# Controller Distiller (500L)', () => extractSymbols(sampleCsharp500Lines, 'Controllers/BenchmarkController.cs'), 500),
+  runBenchmark('Security Guard (Path + Cmd)', () => { isSafePath(process.cwd(), 'src/app.js'); isSafeCommand('npm test'); }, 2000),
+  runBenchmark('Secret Redaction Shield', () => redactSensitiveSecrets(sampleCode500Lines), 1000),
+  runBenchmark('Context Budget Calculator', () => calculateBudget(process.cwd()), 50)
 ];
 
 console.log('| Benchmark Operation             | Iterations | p50 (ms) | p95 (ms) | Throughput (ops/s) | Heap Δ |');
