@@ -1,24 +1,28 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const FILE_BLOCK_REGEX = /<<<FILE:\s*([^\r\n>]+)>>>([\s\S]*?)<<<END_FILE>>>/g;
+const SEARCH_REPLACE_REGEX = /<<<<<<<\s*SEARCH([\s\S]*?)=======([\s\S]*?)>>>>>>>\s*REPLACE/g;
+const CODE_FENCE_REGEX = /```[a-zA-Z0-9_-]*\r?\n([\s\S]*?)\r?\n```/;
+const MARKDOWN_FALLBACK_REGEX = /```[a-zA-Z0-9_-]*\s*(?:\/\/|#|--)\s*(?:filepath:|file:)\s*([^\r\n]+)\r?\n([\s\S]*?)\r?\n```/g;
+
 export function parsePatches(rawText = '') {
   const patches = [];
   if (!rawText) return patches;
 
-  // 1. Check for standard delimiter: <<<FILE: filepath>>> ... <<<END_FILE>>>
-  const fileBlockRegex = /<<<FILE:\s*([^\r\n>]+)>>>([\s\S]*?)<<<END_FILE>>>/g;
+  // Reset regex states
+  FILE_BLOCK_REGEX.lastIndex = 0;
   let match;
 
-  while ((match = fileBlockRegex.exec(rawText)) !== null) {
+  while ((match = FILE_BLOCK_REGEX.exec(rawText)) !== null) {
     const rawFilePath = match[1].trim();
     const blockContent = match[2];
 
-    // Check if block contains SEARCH/REPLACE blocks
-    const searchReplaceRegex = /<<<<<<<\s*SEARCH([\s\S]*?)=======([\s\S]*?)>>>>>>>\s*REPLACE/g;
+    SEARCH_REPLACE_REGEX.lastIndex = 0;
     let srMatch;
     const diffs = [];
 
-    while ((srMatch = searchReplaceRegex.exec(blockContent)) !== null) {
+    while ((srMatch = SEARCH_REPLACE_REGEX.exec(blockContent)) !== null) {
       diffs.push({
         search: srMatch[1].replace(/^\r?\n/, '').replace(/\r?\n$/, ''),
         replace: srMatch[2].replace(/^\r?\n/, '').replace(/\r?\n$/, '')
@@ -32,8 +36,7 @@ export function parsePatches(rawText = '') {
         diffs
       });
     } else {
-      // Full file replacement inside code fences
-      const codeFenceMatch = /```[a-zA-Z0-9_-]*\r?\n([\s\S]*?)\r?\n```/.exec(blockContent);
+      const codeFenceMatch = CODE_FENCE_REGEX.exec(blockContent);
       const content = codeFenceMatch ? codeFenceMatch[1] : blockContent.trim();
       patches.push({
         file: rawFilePath,
@@ -43,10 +46,10 @@ export function parsePatches(rawText = '') {
     }
   }
 
-  // 2. Fallback: Parse markdown code blocks with file path comments (e.g., ```js // filepath: src/app.js)
+  // Fallback: Parse markdown code blocks with filepath comment
   if (patches.length === 0) {
-    const markdownRegex = /```[a-zA-Z0-9_-]*\s*(?:\/\/|#|--)\s*(?:filepath:|file:)\s*([^\r\n]+)\r?\n([\s\S]*?)\r?\n```/g;
-    while ((match = markdownRegex.exec(rawText)) !== null) {
+    MARKDOWN_FALLBACK_REGEX.lastIndex = 0;
+    while ((match = MARKDOWN_FALLBACK_REGEX.exec(rawText)) !== null) {
       patches.push({
         file: match[1].trim(),
         type: 'full_file',
@@ -97,18 +100,21 @@ export function applyPatches(patches = [], rootDir = process.cwd(), options = {}
 
       let currentContent = fs.readFileSync(targetPath, 'utf8');
       let appliedCount = 0;
+      let normalizedCurrent = null; // Lazy cached normalization
 
       for (const diff of patch.diffs) {
         if (currentContent.includes(diff.search)) {
           currentContent = currentContent.replace(diff.search, diff.replace);
           appliedCount++;
         } else {
-          // Fuzzy match: trim lines and match
-          const normalizedCurrent = currentContent.replace(/\r\n/g, '\n');
+          if (!normalizedCurrent) {
+            normalizedCurrent = currentContent.replace(/\r\n/g, '\n');
+          }
           const normalizedSearch = diff.search.replace(/\r\n/g, '\n');
           if (normalizedCurrent.includes(normalizedSearch)) {
             currentContent = normalizedCurrent.replace(normalizedSearch, diff.replace.replace(/\r\n/g, '\n'));
             appliedCount++;
+            normalizedCurrent = null; // Invalidate cache after change
           }
         }
       }

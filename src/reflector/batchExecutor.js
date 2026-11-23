@@ -10,6 +10,12 @@ const DISALLOWED_COMMAND_PATTERNS = [
   /:(){ :|:& };:/
 ];
 
+const PHASE_REGEX = /^PHASE:\s*([^\r\n]+)/m;
+const MKDIR_REGEX = /^MKDIR:\s*([^\r\n]+)/gm;
+const NEXT_PROMPT_REGEX = /NEXT_PROMPT:\s*([\s\S]*?)(?:<<<UAP_BATCH_END>>>|$)/;
+const WRITE_REGEX = /WRITE:\s*([^\r\n]+)\r?\n([\s\S]*?)<<<END_WRITE>>>/g;
+const EXEC_REGEX = /^EXEC:\s*([^\r\n]+)/gm;
+
 export function parseBatch(rawText = '') {
   if (!rawText) return null;
 
@@ -23,7 +29,6 @@ export function parseBatch(rawText = '') {
   if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
     batchBody = rawText.substring(startIndex + startMarker.length, endIndex).trim();
   } else {
-    // If markers are missing but WRITE: exists, try parsing the whole string
     if (rawText.includes('WRITE:')) {
       batchBody = rawText.trim();
     } else {
@@ -39,39 +44,41 @@ export function parseBatch(rawText = '') {
     nextPrompt: ''
   };
 
-  // 1. Extract PHASE:
-  const phaseMatch = /^PHASE:\s*([^\r\n]+)/m.exec(batchBody);
+  // 1. Extract PHASE
+  const phaseMatch = PHASE_REGEX.exec(batchBody);
   if (phaseMatch) batch.phase = phaseMatch[1].trim();
 
-  // 2. Extract MKDIR:
-  const mkdirRegex = /^MKDIR:\s*([^\r\n]+)/gm;
+  // 2. Extract MKDIR (deduplicated)
+  MKDIR_REGEX.lastIndex = 0;
   let mMatch;
-  while ((mMatch = mkdirRegex.exec(batchBody)) !== null) {
-    batch.mkdirs.push(mMatch[1].trim());
+  const mkdirSet = new Set();
+  while ((mMatch = MKDIR_REGEX.exec(batchBody)) !== null) {
+    mkdirSet.add(mMatch[1].trim());
   }
+  batch.mkdirs = Array.from(mkdirSet);
 
-  // 3. Extract NEXT_PROMPT:
-  const nextMatch = /NEXT_PROMPT:\s*([\s\S]*?)(?:<<<UAP_BATCH_END>>>|$)/.exec(batchBody);
+  // 3. Extract NEXT_PROMPT
+  const nextMatch = NEXT_PROMPT_REGEX.exec(batchBody);
   if (nextMatch) {
     batch.nextPrompt = nextMatch[1].trim();
   }
 
-  // 4. Extract WRITE: <file> ... <<<END_WRITE>>>
-  const writeRegex = /WRITE:\s*([^\r\n]+)\r?\n([\s\S]*?)<<<END_WRITE>>>/g;
+  // 4. Extract WRITE
+  WRITE_REGEX.lastIndex = 0;
   let wMatch;
-  while ((wMatch = writeRegex.exec(batchBody)) !== null) {
+  while ((wMatch = WRITE_REGEX.exec(batchBody)) !== null) {
     const filePath = wMatch[1].trim();
-    const content = wMatch[2].replace(/^\r?\n/, ''); // trim leading newline only
+    const content = wMatch[2].replace(/^\r?\n/, '');
     batch.writes.push({
       file: filePath,
       content
     });
   }
 
-  // 5. Extract EXEC:
-  const execRegex = /^EXEC:\s*([^\r\n]+)/gm;
+  // 5. Extract EXEC
+  EXEC_REGEX.lastIndex = 0;
   let eMatch;
-  while ((eMatch = execRegex.exec(batchBody)) !== null) {
+  while ((eMatch = EXEC_REGEX.exec(batchBody)) !== null) {
     batch.execs.push(eMatch[1].trim());
   }
 
@@ -115,7 +122,6 @@ export function executeBatch(batch, rootDir = process.cwd(), options = {}) {
   // 3. Execute safe commands
   if (!skipExec && !dryRun) {
     for (const cmd of batch.execs) {
-      // Validate safety
       const isDangerous = DISALLOWED_COMMAND_PATTERNS.some(p => p.test(cmd));
       if (isDangerous) {
         results.commandsExecuted.push({
