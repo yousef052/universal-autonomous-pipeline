@@ -1,0 +1,29 @@
+{
+  "name": "universal-autonomous-pipeline",
+  "version": "1.0.0",
+  "description": "Universal Autonomous Performance & Context Precision Pipeline for AI Coding Agents",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "uap": "./bin/uap.js",
+    "uap-init": "./bin/uap.js"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousef052/universal-autonomous-pipeline.git"
+  },
+  "keywords": [
+    "ai-agents",
+    "antigravity",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "context-optimization",
+    "developer-tools"
+  ],
+  "author": "Yousef Ayman",
+  "license": "MIT"
+}

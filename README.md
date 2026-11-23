@@ -1,10 +1,35 @@
 # Universal Autonomous Performance Pipeline (UAP)
 
+[![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Production](https://img.shields.io/badge/Status-Production-green.svg)]()
+[![NPM Version](https://img.shields.io/badge/npm-v1.0.0-cb3837.svg)](https://www.npmjs.com)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)]()
 [![Platform: Universal](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Claude%20%7C%20Cursor%20%7C%20Windsurf-orange.svg)]()
 
-A lightweight, universal framework for AI coding agents that cuts multi-turn prompt latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
+A production-grade, zero-dependency autonomous engine and CLI tool for AI coding agents. UAP cuts multi-turn prompt turnaround latency from **60 minutes down to under 1 minute** while guaranteeing 100% project memory retention without regression bugs.
+
+---
+
+## ⚡ Quick Start: One Command Setup
+
+Initialize any repository with zero configuration:
+
+```bash
+# In your project root
+npx uap init
+```
+
+Audit your project's AI context health score:
+
+```bash
+npx uap audit
+```
+
+```text
+Context Health Audit for: /my-awesome-project
+  Score: 100/100 (Grade: A)
+  Status: EXCELLENT (All optimization standards met)
+```
 
 ---
 
@@ -28,55 +53,54 @@ flowchart TD
 
 ---
 
+## 🛠️ CLI Commands & Flags
+
+| Command | Description |
+| :--- | :--- |
+| `npx uap init [dir]` | Auto-detects tech stack and generates `PROJECT_STATE.md`, `.agentignore`, and agent configs. |
+| `npx uap audit [dir]` | Evaluates project health score (0-100) and detects missing ignore rules or state files. |
+| `npx uap --version` | Outputs current CLI version. |
+| `npx uap --help` | Displays help manual and usage instructions. |
+
+### Available Flags
+- `--force`: Overwrite existing configuration files.
+- `--dry-run`: Preview planned changes without writing to disk.
+- `--json`: Output audit results in machine-readable JSON format.
+
+---
+
 ## 📂 Repository Structure
 
 ```text
 universal-autonomous-pipeline/
-├── README.md                      # Overview, setup, and benchmarks
-├── SPECIFICATION.md               # Complete 4-stage pipeline standard
-├── PROJECT_STATE.template.md      # Template for the living project ledger
-├── .agentignore                   # Universal agent exclusion patterns
-├── templates/                     # Platform-specific drop-in configs
-│   ├── AGENTS.md                  # Google Antigravity configuration
-│   ├── CLAUDE.md                  # Anthropic Claude Code configuration
-│   ├── .cursorrules               # Cursor IDE rules file
-│   ├── .windsurfrules             # Windsurf IDE rules file
-│   └── copilot-instructions.md    # GitHub Copilot instructions
-├── scripts/                       # Maintenance and watchdog utilities
-│   ├── watch-context.ps1          # Context size auditor & auto-archiver
-│   └── repair-antigravity.ps1     # Process conflict and port repair
-└── docs/
-    ├── architecture.md            # Three-tier memory architecture
-    └── benchmarks.md              # 10-iteration verification metrics
+├── bin/
+│   └── uap.js                     # Production executable CLI entrypoint
+├── src/
+│   ├── index.js                   # Public programmatic API exports
+│   ├── detectors/
+│   │   └── projectDetector.js     # Multi-ecosystem detector (Node, Py, Go, Rust)
+│   ├── generators/
+│   │   ├── stateGenerator.js      # Dynamic PROJECT_STATE.md ledger builder
+│   │   └── agentGenerator.js      # Cross-platform agent config generator
+│   └── auditor/
+│       └── contextAuditor.js      # Context health and scoring engine
+├── test/                          # Unit test suite (node:test)
+│   ├── detector.test.js
+│   ├── generator.test.js
+│   └── auditor.test.js
+├── docs/
+│   ├── architecture.md            # Three-tier memory architecture
+│   ├── benchmarks.md              # 10-iteration verification metrics
+│   └── case-study-enterprise-tours.md # Real-world 4,232-step optimization case study
+├── templates/                     # Universal configuration templates
+└── scripts/                       # Autonomous watchdog scripts
 ```
 
 ---
 
-## 🛠️ Quick Installation
+## 📊 Real-World Production Benchmarks
 
-### Option A: Install in a Specific Project
-Copy the matching template from `templates/` into your project's root:
-
-* **Google Antigravity:** Copy `templates/AGENTS.md` to `<project-root>/AGENTS.md`
-* **Claude Code:** Copy `templates/CLAUDE.md` to `<project-root>/CLAUDE.md`
-* **Cursor IDE:** Copy `templates/.cursorrules` to `<project-root>/.cursorrules`
-* **Windsurf IDE:** Copy `templates/.windsurfrules` to `<project-root>/.windsurfrules`
-* **GitHub Copilot:** Copy `templates/copilot-instructions.md` to `<project-root>/.github/copilot-instructions.md`
-
-Then copy `PROJECT_STATE.template.md` to `<project-root>/PROJECT_STATE.md` and populate your tech stack.
-
-### Option B: Machine-Wide Global Deployment (Antigravity)
-Deploy globally so all current and future projects inherit the pipeline automatically:
-
-```powershell
-Copy-Item "templates/AGENTS.md" "$env:USERPROFILE\.gemini\config\AGENTS.md"
-Copy-Item ".agentignore" "$env:USERPROFILE\.gitignore_global"
-git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
-```
-
----
-
-## 📊 Performance Benchmarks
+Tested in complex enterprise codebases (such as Next.js + Django platforms):
 
 | Metric | Without Pipeline | With UAP Pipeline | Improvement |
 | :--- | :---: | :---: | :---: |
@@ -85,6 +109,8 @@ git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
 | **Token Payload per Turn** | ~6.7M tokens | **< 30k tokens** | **98% lighter** |
 | **Agent Autonomous Steps** | 25 – 45 turns | **3 – 6 micro-turns** | **85% fewer turns** |
 | **Memory Regression Rate** | High (forgets work) | **0% (Living Ledger)** | **100% retained** |
+
+Read the in-depth breakdown in the [Enterprise Travel Platform Case Study](docs/case-study-enterprise-tours.md).
 
 ---
 
