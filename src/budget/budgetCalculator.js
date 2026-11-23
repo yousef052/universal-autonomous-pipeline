@@ -14,12 +14,17 @@ const DEFAULT_IGNORED_DIRS = new Set([
   'coverage',
   '.venv',
   '__pycache__',
-  'vendor'
+  'vendor',
+  '.vs',
+  'TestResults',
+  'bin',
+  'obj'
 ]);
 
 const TEXT_EXTENSIONS = new Set([
   '.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx',
   '.py', '.go', '.rs', '.java', '.c', '.cpp', '.h',
+  '.cs', '.csproj', '.sln', '.props',
   '.html', '.css', '.scss', '.json', '.yaml', '.yml',
   '.md', '.sql', '.sh', '.ps1'
 ]);

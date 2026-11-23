@@ -124,3 +124,18 @@ test('renderDoctorReport and renderBudgetScorecard format valid ASCII output', (
   assert.ok(budgetCard.includes('97.9%'));
   assert.ok(budgetCard.includes('$24.96 Saved'));
 });
+
+test('contextDoctor detects .NET TestResults and *.user files as context leaks', () => {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'uap-doc-dotnet-'));
+  try {
+    fs.writeFileSync(path.join(tmpDir, 'test_run.trx'), '<TestRun id="123"/>');
+    fs.writeFileSync(path.join(tmpDir, 'MyProject.csproj.user'), '<ProjectOptions/>');
+
+    const diag = diagnoseContextLeaks(tmpDir);
+    assert.equal(diag.healthy, false);
+    assert.ok(diag.leaks.some(l => l.type === 'DOTNET_CACHE'));
+    assert.ok(diag.suggestedIgnoreEntries.includes('TestResults/'));
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
