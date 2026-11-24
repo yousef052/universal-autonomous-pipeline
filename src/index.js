@@ -21,3 +21,5 @@ export { calculateBudget, renderBudgetScorecard } from './budget/budgetCalculato
 export { isSafePath, isSafeCommand, redactSensitiveSecrets } from './safety/securityGuard.js';
 export { detectPlatform, detectEnvironment } from './context/environmentContext.js';
 export { getLanguageProfile } from './context/languageContext.js';
+export { verifySystem, fixIdeVisibility, renderVerificationReport } from './verifier/systemVerifier.js';
+

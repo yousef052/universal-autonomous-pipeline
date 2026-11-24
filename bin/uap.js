@@ -22,6 +22,7 @@ import { runCareConsultation } from '../src/care/careWizard.js';
 import { recordMilestone } from '../src/memory/recordEngine.js';
 import { diagnoseContextLeaks, fixContextLeaks, renderDoctorReport } from '../src/doctor/contextDoctor.js';
 import { calculateBudget, renderBudgetScorecard } from '../src/budget/budgetCalculator.js';
+import { verifySystem, fixIdeVisibility, renderVerificationReport } from '../src/verifier/systemVerifier.js';
 
 const args = process.argv.slice(2);
 const isZeroArgs = args.length === 0;
@@ -43,6 +44,7 @@ const flags = {
   yes: args.includes('--yes') || args.includes('-y'),
   care: args.includes('--care') || command === 'care',
   fix: args.includes('--fix'),
+  test: args.includes('--test'),
   help: (args.includes('--help') || args.includes('-h') || command === 'help') && !isZeroArgs,
   version: args.includes('--version') || args.includes('-v') || command === 'version',
   chat: getFlagValue('chat') || 'universal',
@@ -66,6 +68,8 @@ Zero-Bloat Autonomous & Web Chat Precision Engine
 Usage:
   npx uap                       Launch interactive guided wizard (Default)
   npx uap care                  Launch CARE Framework Consultation
+  npx uap verify [--test] [--fix] Run deep system health, security & IDE visibility audit
+  npx uap fix-ide               Radically whitelist bin/ & ensure explorer visibility
   npx uap init [dir]            Initialize UAP in a project
   npx uap record "<summary>"    Auto-record milestone to PROJECT_STATE.md (Living Memory)
   npx uap sync                  Auto-record milestone from recent git changes
@@ -122,6 +126,21 @@ async function runInteractive() {
       if (fix) {
         const result = fixContextLeaks(targetDir, diag);
         console.log(`\n[FIXED] Added ${result.fixedCount} leak pattern(s) to .agentignore.\n`);
+      }
+    }
+    process.exit(0);
+  }
+
+  if (mode === 'verify') {
+    const report = verifySystem(targetDir, { runTests: flags.test });
+    console.log(renderVerificationReport(report));
+    if (!report.healthy || report.issues.some(i => i.category === 'ide')) {
+      const doFix = flags.yes || await askConfirmation('Auto-fix IDE visibility and security settings now? [Y/n]: ');
+      if (doFix) {
+        const fixRes = fixIdeVisibility(targetDir);
+        console.log(`\n[OK] Remediation completed:`);
+        fixRes.actionsTaken.forEach(a => console.log(`  -> ${a}`));
+        console.log('\n💡 Tip: In Antigravity IDE / VS Code, run "Developer: Reload Window" (Ctrl+Shift+P) if the folder was already open.\n');
       }
     }
     process.exit(0);
@@ -506,6 +525,28 @@ if (command === 'interactive' || command === 'start') {
   } else {
     console.log(renderDoctorReport(diag));
   }
+} else if (command === 'verify' || command === 'health' || command === 'checkup') {
+  const report = verifySystem(targetDir, { runTests: flags.test });
+  if (flags.json) {
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log(renderVerificationReport(report));
+    if (flags.fix || (!report.healthy && flags.yes)) {
+      const fixRes = fixIdeVisibility(targetDir);
+      console.log(`\n[OK] Remediation completed:`);
+      fixRes.actionsTaken.forEach(a => console.log(`  -> ${a}`));
+      console.log('\n💡 Tip: In Antigravity IDE / VS Code, run "Developer: Reload Window" (Ctrl+Shift+P) if the folder was already open.\n');
+    }
+  }
+  process.exit(report.healthy ? 0 : 1);
+} else if (command === 'fix-ide' || command === 'unignore-bin') {
+  const fixRes = fixIdeVisibility(targetDir);
+  console.log(`\n=== UAP Radical IDE Visibility & Git Whitelist Fix ===\n`);
+  console.log(`Target Directory: ${targetDir}`);
+  fixRes.actionsTaken.forEach(a => console.log(`  [OK] ${a}`));
+  console.log(`\n🎉 Success! Folder "bin/" is now strictly whitelisted across .gitignore, .vscode/settings.json, and IDE settings.`);
+  console.log(`👉 In Antigravity IDE / VS Code: press "Ctrl+Shift+P" -> type "Reload Window" to refresh the UI explorer tree immediately.\n`);
+  process.exit(0);
 } else if (command === 'budget' || command === 'token' || command === 'tokens') {
   const budget = calculateBudget(targetDir);
   console.log(renderBudgetScorecard(budget));
