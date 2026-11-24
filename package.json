@@ -27,5 +27,16 @@
     "developer-tools"
   ],
   "author": "Yousef Ayman",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "AGENTS.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
