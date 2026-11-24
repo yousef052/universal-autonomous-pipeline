@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Added humanize-code skill and engineering craftsmanship guide for eliminating robotic AI smells. (templates/skills/humanize-code/SKILL.md, docs/humanize-code-guide.md, README.md, PROJECT_STATE.md)
 - [2026-11-24] Added frontend-benchmark-playbook skill and 35-point verification playbook for extracting real Frontend CV metrics. (templates/skills/frontend-benchmark-playbook/SKILL.md, docs/frontend-benchmarking-playbook.md, README.md, PROJECT_STATE.md)
 - [2026-11-24] Added backend-benchmark-playbook skill and 35-point verification playbook for extracting real CV metrics. (templates/skills/backend-benchmark-playbook/SKILL.md, docs/backend-benchmarking-playbook.md, README.md, PROJECT_STATE.md)
 - [2026-11-24] Added frontend-architect skill and official 130-step Modern Frontend & Web Vitals master roadmap. (templates/skills/frontend-architect/SKILL.md, docs/frontend-roadmap-130.md, README.md, PROJECT_STATE.md)
