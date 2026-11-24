@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "node --test",
-    "bench": "node benchmarks/run-benchmarks.js"
+    "bench": "node benchmarks/run-benchmarks.js",
+    "wiki:sync": "powershell -ExecutionPolicy Bypass -File scripts/sync-wiki.ps1"
   },
   "repository": {
     "type": "git",
