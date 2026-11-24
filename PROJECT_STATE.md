@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Added frontend-architect skill and official 130-step Modern Frontend & Web Vitals master roadmap. (templates/skills/frontend-architect/SKILL.md, docs/frontend-roadmap-130.md, README.md, PROJECT_STATE.md)
 - [2026-11-24] Added uap verify and radical IDE visibility engine (uap fix-ide) with 57 automated tests.
 - [2026-11-24] Expanded dotnet-backend-architect skill and docs to 130-step master roadmap with Phase 0, Phase 2.5, and Phase 11.
 - [2026-11-24] Added dotnet-backend-architect skill and official 100-step ASP.NET Core & Azure WAF roadmap.
