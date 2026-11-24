@@ -43,6 +43,8 @@ npm install -g universal-autonomous-pipeline
 | Command | Category | Description |
 | :--- | :---: | :--- |
 | `uap` | **Interactive** | Interactive guided wizard with visual menus, pre-flight plan, and diagnostics. |
+| `uap verify [--test] [--fix]` | **Verification** | Deep system health, security boundaries, and IDE visibility audit. |
+| `uap fix-ide` | **IDE Defense** | Whitelists `bin/` across Git, VS Code, and Antigravity IDE to kill dimming. |
 | `uap care` | **Quality** | CARE Framework consultation (Connect, Ask, Resolve, Expectations). |
 | `uap record "<summary>"` | **Memory** | Auto-captures git diffs and appends milestone to `PROJECT_STATE.md`. |
 | `uap sync` | **Memory** | Synchronizes git status changes directly into the living memory ledger. |

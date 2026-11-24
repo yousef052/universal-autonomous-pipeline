@@ -9,3 +9,8 @@ coverage/
 # Explicitly ensure CLI entrypoint is never ignored by IDE or Git
 !bin/
 !bin/**
+
+# Explicitly ensure CLI entrypoint is never ignored by IDE or Git
+![Bb]in
+![Bb]in/
+![Bb]in/**
