@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Successfully published universal-autonomous-pipeline v1.6.0 to the public NPM registry with 2FA protection. (package.json, README.md, PROJECT_STATE.md)
 - [2026-11-24] Standardized on production-grade AGENTS.md (UAP-SPEC-2026.1) and purged redundant agent config duplicates. (AGENTS.md, templates/AGENTS.md, PROJECT_STATE.md)
 - [2026-11-24] Added humanize-code skill and engineering craftsmanship guide for eliminating robotic AI smells. (templates/skills/humanize-code/SKILL.md, docs/humanize-code-guide.md, README.md, PROJECT_STATE.md)
 - [2026-11-24] Added frontend-benchmark-playbook skill and 35-point verification playbook for extracting real Frontend CV metrics. (templates/skills/frontend-benchmark-playbook/SKILL.md, docs/frontend-benchmarking-playbook.md, README.md, PROJECT_STATE.md)

@@ -2,7 +2,7 @@
 
 [![CI Status](https://github.com/yousef052/universal-autonomous-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/yousef052/universal-autonomous-pipeline/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![NPM Version](https://img.shields.io/badge/npm-v1.6.0-cb3837.svg)](https://www.npmjs.com)
+[![NPM Version](https://img.shields.io/badge/npm-v1.6.0-cb3837.svg)](https://www.npmjs.com/package/universal-autonomous-pipeline)
 [![Tests Passing](https://img.shields.io/badge/tests-57%20passed%20(100%25)-brightgreen.svg)]()
 [![Documentation: Wiki](https://img.shields.io/badge/docs-GitHub%20Wiki-informational.svg)](https://github.com/yousef052/universal-autonomous-pipeline/wiki)
 [![Quality Standard: CARE](https://img.shields.io/badge/Quality%20Standard-CARE%20Framework-blueviolet.svg)](docs/care-framework.md)
