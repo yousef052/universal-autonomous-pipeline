@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "bin": {
-    "uap": "./bin/uap.js",
-    "uap-init": "./bin/uap.js"
+    "uap": "bin/uap.js",
+    "uap-init": "bin/uap.js"
   },
   "scripts": {
     "test": "node --test",
