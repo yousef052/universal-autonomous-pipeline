@@ -106,6 +106,8 @@ UAP v1.6.0 embeds an active security firewall inside every file modification and
 > 📊 **Backend Benchmarking & Verification Playbook:** Includes the official [35-Point Backend Verification & Benchmarking Playbook](docs/backend-benchmarking-playbook.md) for extracting provable metrics for CVs alongside the `backend-benchmark-playbook` Antigravity skill.
 >
 > 🎨 **Frontend Benchmarking & Verification Playbook:** Includes the official [35-Point Frontend Verification & Benchmarking Playbook](docs/frontend-benchmarking-playbook.md) for extracting provable Web Vitals & a11y metrics for CVs alongside the `frontend-benchmark-playbook` Antigravity skill.
+>
+> 🧠 **Human Code Craftsmanship & Intuition:** Includes the official [Humanize Code Craftsmanship Guide](docs/humanize-code-guide.md) for eliminating robotic AI smells and instilling Staff/Principal engineering intuition alongside the `humanize-code` Antigravity skill.
 
 ---
 
