@@ -1,7 +1,7 @@
-# Case Study: Enterprise Travel Platform Optimization
+# Case Study: Production Enterprise Web App Optimization
 
 ## Executive Summary
-In an enterprise multi-package codebase (`enterprise-tours`), developer agent sessions experienced severe degradation:
+In an enterprise multi-package codebase (`production-booking-engine`), developer agent sessions experienced severe degradation:
 - Prompt response times extended from seconds to over **50 minutes** per request.
 - The Antigravity session database inflated to **55.1 MB** across 4,232 recorded turns.
 - Each agent turn serialized and re-evaluated over **6.7 million cumulative tokens**.

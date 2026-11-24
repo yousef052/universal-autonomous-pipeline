@@ -37,7 +37,7 @@ Before proposing any actions, UAP establishes connection with:
 ┌──────────────────────────────────────────────────────────────────┐
 │ 🤝 [CARE: CONNECT] Repository Context Established                │
 ├──────────────────────────────────────────────────────────────────┤
-│ Project Name:    enterprise-tours                                    │
+│ Project Name:    enterprise-booking-engine                       │
 │ Active Tech:     Next.js Application (React / TypeScript)        │
 │ Git Environment: main (Clean)                                    │
 │ Context Health:  Score: 100/100 (Grade: A)                       │
