@@ -102,6 +102,8 @@ UAP v1.6.0 embeds an active security firewall inside every file modification and
 > 🏛️ **Flagship CV Project Blueprint:** Includes the official [130-Step ASP.NET Core & Azure WAF Master Engineering Roadmap](docs/dotnet-backend-roadmap-130.md) (and [100-step overview](docs/dotnet-backend-roadmap-100.md)) alongside the `dotnet-backend-architect` Antigravity skill.
 >
 > ⚡ **Modern Frontend Flagship Blueprint:** Includes the official [130-Step Modern Frontend & Web Vitals Master Roadmap](docs/frontend-roadmap-130.md) alongside the `frontend-architect` Antigravity skill.
+>
+> 📊 **Backend Benchmarking & Verification Playbook:** Includes the official [35-Point Backend Verification & Benchmarking Playbook](docs/backend-benchmarking-playbook.md) for extracting provable metrics for CVs alongside the `backend-benchmark-playbook` Antigravity skill.
 
 ---
 
