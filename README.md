@@ -104,6 +104,8 @@ UAP v1.6.0 embeds an active security firewall inside every file modification and
 > ⚡ **Modern Frontend Flagship Blueprint:** Includes the official [130-Step Modern Frontend & Web Vitals Master Roadmap](docs/frontend-roadmap-130.md) alongside the `frontend-architect` Antigravity skill.
 >
 > 📊 **Backend Benchmarking & Verification Playbook:** Includes the official [35-Point Backend Verification & Benchmarking Playbook](docs/backend-benchmarking-playbook.md) for extracting provable metrics for CVs alongside the `backend-benchmark-playbook` Antigravity skill.
+>
+> 🎨 **Frontend Benchmarking & Verification Playbook:** Includes the official [35-Point Frontend Verification & Benchmarking Playbook](docs/frontend-benchmarking-playbook.md) for extracting provable Web Vitals & a11y metrics for CVs alongside the `frontend-benchmark-playbook` Antigravity skill.
 
 ---
 
