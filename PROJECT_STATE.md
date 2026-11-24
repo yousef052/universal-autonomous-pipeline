@@ -17,6 +17,7 @@
 - `scripts/` : Core application modules
 
 ## 4. Completed Milestones (Auto-Maintained)
+- [2026-11-24] Added uap verify and radical IDE visibility engine (uap fix-ide) with 57 automated tests.
 - [2026-11-24] Expanded dotnet-backend-architect skill and docs to 130-step master roadmap with Phase 0, Phase 2.5, and Phase 11.
 - [2026-11-24] Added dotnet-backend-architect skill and official 100-step ASP.NET Core & Azure WAF roadmap.
 - [2026-11-24] Overhauled AGENTS.md, CLAUDE.md, README.md, and agent templates with comprehensive directives and architecture guidance.
