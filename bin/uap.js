@@ -25,8 +25,9 @@ import { calculateBudget, renderBudgetScorecard } from '../src/budget/budgetCalc
 import { verifySystem, fixIdeVisibility, renderVerificationReport } from '../src/verifier/systemVerifier.js';
 
 const args = process.argv.slice(2);
-const isZeroArgs = args.length === 0;
-const command = isZeroArgs ? 'interactive' : args[0];
+const positionalArgs = args.filter(a => !a.startsWith('-'));
+const command = positionalArgs.length === 0 ? 'interactive' : positionalArgs[0];
+const isZeroArgs = positionalArgs.length === 0;
 
 function getFlagValue(name) {
   const prefix = `--${name}=`;
@@ -114,7 +115,9 @@ async function runInteractive() {
 
   if (mode === 'audit') {
     const auditRes = auditProject(targetDir);
+    const budget = calculateBudget(targetDir);
     console.log(renderBenchmarkScorecard({ auditResult: auditRes, mode: 'audit' }));
+    console.log(renderBudgetScorecard(budget));
     process.exit(0);
   }
 
@@ -171,7 +174,7 @@ async function runInteractive() {
 
   const projectInfo = detectProject(targetDir);
 
-  if (mode === 'agent') {
+  if (mode === 'setup' || mode === 'agent') {
     const plannedActions = [
       { name: 'PROJECT_STATE.md', type: 'create', detail: 'Living architecture & memory ledger' },
       { name: '.agentignore', type: 'create', detail: 'Strict exclusions for dependencies & caches' },

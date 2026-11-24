@@ -1,8 +1,11 @@
 import readline from 'node:readline';
 
+/**
+ * Radical Simplification: 3 intuitive options for developers.
+ */
 export async function promptModeSelect() {
   if (!process.stdin.isTTY) {
-    return 'agent';
+    return 'setup';
   }
 
   const rl = readline.createInterface({
@@ -10,33 +13,27 @@ export async function promptModeSelect() {
     output: process.stdout
   });
 
-  console.log(`\nSelect operational mode:\n`);
-  console.log(`  [1] Agent Mode   - Initialize living memory ledger & ignore rules`);
-  console.log(`  [2] Patch Mode   - Tree-shake code into <3k token prompt & apply diffs`);
-  console.log(`  [3] Builder Mode - Multi-phase project scaffolding via web chat`);
-  console.log(`  [C] CARE Mode    - Step-by-step guided setup with git & stack checks`);
-  console.log(`  [D] Doctor Mode  - Detect context leaks, large files & unignored noise`);
-  console.log(`  [V] Verify Mode  - Comprehensive health, security & IDE visibility audit`);
-  console.log(`  [B] Budget Mode  - Calculate token savings and financial ROI`);
-  console.log(`  [R] Record Mode  - Log completed milestone to PROJECT_STATE.md`);
-  console.log(`  [A] Audit        - Check context health score`);
-  console.log(`  [Q] Exit\n`);
+  console.log(`\nHow would you like to optimize your workspace?\n`);
+  console.log(`  [1] ⚡ Auto-Setup (Recommended) - Prepare project for AI agents in 1 second`);
+  console.log(`  [2] 🩺 Doctor & Health Check   - Scan for context leaks, logs & bloated files`);
+  console.log(`  [3] 📊 Audit & Token Savings   - Calculate health score (0-100) & financial ROI`);
+  console.log(`  [Q] 🚪 Exit\n`);
 
   return new Promise(resolve => {
-    rl.question('Option [1, 2, 3, C, D, V, B, R, A, Q] (Default: 1): ', answer => {
+    rl.question('Select an option [1, 2, 3, Q] (Default: 1): ', answer => {
       rl.close();
       const choice = (answer || '1').trim().toLowerCase();
-      if (choice === '1' || choice === 'agent') resolve('agent');
-      else if (choice === '2' || choice === 'patch') resolve('patch');
-      else if (choice === '3' || choice === 'builder') resolve('builder');
-      else if (choice === 'c' || choice === 'care') resolve('care');
-      else if (choice === 'd' || choice === 'doctor') resolve('doctor');
-      else if (choice === 'v' || choice === 'verify') resolve('verify');
-      else if (choice === 'b' || choice === 'budget') resolve('budget');
-      else if (choice === 'r' || choice === 'record') resolve('record');
-      else if (choice === 'a' || choice === 'audit') resolve('audit');
+      if (choice === '1' || choice === 'setup' || choice === 'agent') resolve('setup');
+      else if (choice === '2' || choice === 'doctor' || choice === 'health' || choice === 'd') resolve('doctor');
+      else if (choice === '3' || choice === 'audit' || choice === 'budget' || choice === 'a' || choice === 'b') resolve('audit');
       else if (choice === 'q' || choice === 'exit') resolve('exit');
-      else resolve('agent');
+      // Backward-compatible power shortcuts:
+      else if (choice === 'care' || choice === 'c') resolve('care');
+      else if (choice === 'verify' || choice === 'v') resolve('verify');
+      else if (choice === 'record' || choice === 'r') resolve('record');
+      else if (choice === 'patch') resolve('patch');
+      else if (choice === 'builder') resolve('builder');
+      else resolve('setup');
     });
   });
 }

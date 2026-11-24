@@ -15,21 +15,23 @@
 
 ## ⚡ Quick Start: Zero-Friction One-Command Experience
 
-Launch the **Interactive Guided Wizard** with a single command:
+Launch the **Interactive 1-Click Wizard** with a single command:
 
 ```bash
-# Launch interactive developer experience:
 npx uap
-
-# Or run the CARE Quality Framework Consultation directly:
-npx uap care
-
-# Check token budget and financial ROI:
-npx uap budget
-
-# Scan and heal context leaks:
-npx uap doctor --fix
 ```
+
+---
+
+## 💡 How to Use in 10 Seconds (The Mental Model)
+
+You only ever need UAP in **3 real-world moments**:
+
+| When | What to Run | What UAP Does in 1 Second |
+| :--- | :--- | :--- |
+| **1. Starting in a project** | `npx uap` (press Enter) | Prepares `PROJECT_STATE.md` + `AGENTS.md` so AI understands your code with zero hallucinations. |
+| **2. Finished a feature** | `uap record "Added feature X"` | Auto-records what you built into living memory so AI remembers it in future turns. |
+| **3. Agent feels slow** | `uap doctor --fix` | Scans for bloated logs, uncompressed databases, or `.env` leaks and heals them instantly. |
 
 Or install globally on your system:
 
