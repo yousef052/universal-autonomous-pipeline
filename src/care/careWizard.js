@@ -58,10 +58,7 @@ export async function runCareConsultation(rootDir = process.cwd(), options = {})
   const plannedActions = [
     { name: 'PROJECT_STATE.md', type: 'create', detail: 'Living architecture & memory ledger' },
     { name: '.agentignore', type: 'create', detail: choiceStrict === '2' ? 'Aggressive build & fixture exclusions' : 'Production exclusions' },
-    { name: 'AGENTS.md', type: 'create', detail: 'Antigravity autonomous 4-stage pipeline rule' },
-    { name: 'CLAUDE.md', type: 'create', detail: 'Claude Code instructions' },
-    { name: '.cursorrules', type: 'create', detail: 'Cursor IDE context constraints' },
-    { name: '.windsurfrules', type: 'create', detail: 'Windsurf IDE execution instructions' }
+    { name: 'AGENTS.md', type: 'create', detail: 'Universal production agent directives (UAP-SPEC-2026.1)' }
   ];
 
   console.log(renderPreflightPlan({

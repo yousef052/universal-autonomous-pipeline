@@ -163,7 +163,6 @@ export function verifySystem(targetDir = process.cwd(), options = {}) {
     'package.json',
     'PROJECT_STATE.md',
     'README.md',
-    'CLAUDE.md',
     'AGENTS.md',
     '.vscode/settings.json'
   ];

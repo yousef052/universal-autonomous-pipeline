@@ -37,7 +37,7 @@ test('injectAgentConfigs respects dry-run and writes files when executed', () =>
   try {
     // Dry run first
     const dryResults = injectAgentConfigs(tmpDir, { dryRun: true });
-    assert.equal(dryResults.length, 5);
+    assert.equal(dryResults.length, 2);
     for (const r of dryResults) {
       assert.ok(r.status.includes('dry-run'));
       assert.equal(fs.existsSync(path.join(tmpDir, r.file)), false);
@@ -45,7 +45,7 @@ test('injectAgentConfigs respects dry-run and writes files when executed', () =>
 
     // Actual execution
     const liveResults = injectAgentConfigs(tmpDir, { dryRun: false });
-    assert.equal(liveResults.length, 5);
+    assert.equal(liveResults.length, 2);
     for (const r of liveResults) {
       assert.equal(r.status, 'CREATED');
       assert.ok(fs.existsSync(path.join(tmpDir, r.file)));

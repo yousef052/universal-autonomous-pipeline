@@ -26,13 +26,17 @@ obj/
 package-lock.json
 `;
 
-  const genericRule = `# Autonomous Performance, Precision & Safety Pipeline
+  const genericRule = `# Universal Autonomous Performance, Precision & Safety Pipeline (AGENTS.md)
+
+> **Specification Standard:** UAP-SPEC-2026.1
+> **Target Runtimes:** Universal AI Coding Agents (Antigravity, Claude Code, Cursor, Windsurf, Copilot, Codex)
 
 Enforce the 5-stage pipeline autonomously on every prompt:
 1. Virtual @: Read PROJECT_STATE.md on Turn 1 to anchor context. Deduce target files without blind scans.
 2. Context Economy: Ignore node_modules, dist, build, bin, obj, and assets. Read targeted functions/lines for files >150 lines. Redact sensitive secrets.
 3. Single-Pass & Rigor: Batch contiguous edits. Validate build/test once at the end. Use feature branches and never commit broken code directly to main.
 4. Living Memory: Append a 1-line update to PROJECT_STATE.md under Completed Milestones on task completion (or run 'uap record').
+5. Ironclad Safety Shield: Isolate file operations inside workspace root. Block destructive disk commands and forced git pushes.
 `;
 
   let isDotNet = options.isDotNet;
@@ -65,12 +69,10 @@ TestResults/
 `;
   }
 
+  // Pure universal standard: AGENTS.md + .agentignore only
   const filesToWrite = [
     { name: '.agentignore', content: finalIgnoreContent },
-    { name: 'AGENTS.md', content: finalRule },
-    { name: 'CLAUDE.md', content: finalRule },
-    { name: '.cursorrules', content: finalRule },
-    { name: '.windsurfrules', content: finalRule }
+    { name: 'AGENTS.md', content: finalRule }
   ];
 
   for (const item of filesToWrite) {
